@@ -299,6 +299,7 @@ declare namespace DataCy {
         "integrate-select-api-key-step-content" |
         "integrate-select-api-key-step-label" |
         "integrate-weapon-selector-button" |
+        "invitation-accepted-success-message" |
         "invitation-dialog-close-button" |
         "invitation-dialog-input-field" |
         "invitation-dialog-invite-button" |
@@ -430,6 +431,7 @@ declare namespace DataCy {
         "permissions-menu-inherited-message" |
         "permissions-menu-reset-to-organization" |
         "permissions-menu-save" |
+        "plan_seat_limit_exceeded_while_accepting_invitation_message" |
         "project-ai-prompt-dialog-description-input" |
         "project-ai-prompt-dialog-save" |
         "project-dashboard-activity-chart" |
@@ -523,6 +525,7 @@ declare namespace DataCy {
         "search-select-item" |
         "search-select-new" |
         "search-select-search" |
+        "seat_spending_limit_exceeded_while_accepting_invitation_message" |
         "self-hosted-ee-active-plan" |
         "sensitive-dialog-otp-input" |
         "sensitive-dialog-password-input" |
