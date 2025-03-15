@@ -2041,7 +2041,10 @@ export interface components {
         | "current_subscription_is_not_trialing"
         | "sorting_and_paging_is_not_supported_when_using_cursor"
         | "strings_metric_are_not_supported"
-        | "keys_seats_metric_are_not_supported_for_slots_fixed_type";
+        | "keys_seats_metric_are_not_supported_for_slots_fixed_type"
+        | "plan_key_limit_exceeded"
+        | "keys_spending_limit_exceeded"
+        | "plan_seat_limit_exceeded";
       params?: { [key: string]: unknown }[];
     };
     ExistenceEntityDescription: {
@@ -2661,6 +2664,11 @@ export interface components {
     KeyWithTranslationsModel: {
       /** @description There is a context available for this key */
       contextPresent: boolean;
+      /**
+       * Format: int64
+       * @description The time when the key was created
+       */
+      createdAt: number;
       /**
        * @description The namespace of the key
        * @example homepage
@@ -4587,7 +4595,10 @@ export interface components {
         | "current_subscription_is_not_trialing"
         | "sorting_and_paging_is_not_supported_when_using_cursor"
         | "strings_metric_are_not_supported"
-        | "keys_seats_metric_are_not_supported_for_slots_fixed_type";
+        | "keys_seats_metric_are_not_supported_for_slots_fixed_type"
+        | "plan_key_limit_exceeded"
+        | "keys_spending_limit_exceeded"
+        | "plan_seat_limit_exceeded";
       params?: { [key: string]: unknown }[];
       success: boolean;
     };
@@ -4907,6 +4918,7 @@ export interface components {
       /** @description Relevant for invoices only. When there are applied stripe credits, we need to reduce the total price by this amount. */
       appliedStripeCredits?: number;
       credits?: components["schemas"]["SumUsageItemModel"];
+      keys: components["schemas"]["AverageProportionalUsageItemModel"];
       seats: components["schemas"]["AverageProportionalUsageItemModel"];
       subscriptionPrice?: number;
       total: number;
