@@ -772,6 +772,9 @@ export interface paths {
     /** Sends a test request to the webhook */
     post: operations["test_1"];
   };
+  "/v2/prompts/get-variables": {
+    get: operations["variables"];
+  };
   "/v2/prompts/test": {
     post: operations["test"];
   };
@@ -1340,7 +1343,7 @@ export interface components {
     ContentDeliveryConfigModel: {
       autoPublish: boolean;
       /**
-       * @description If true, HTML tags are escaped in the exported file.
+       * @description If true, HTML tags are escaped in the exported file. (Supported in the XLIFF format only).
        *
        * e.g. Key <b>hello</b> will be exported as &lt;b&gt;hello&lt;/b&gt;
        */
@@ -1458,7 +1461,7 @@ export interface components {
        */
       contentStorageId?: number;
       /**
-       * @description If true, HTML tags are escaped in the exported file.
+       * @description If true, HTML tags are escaped in the exported file. (Supported in the XLIFF format only).
        *
        * e.g. Key <b>hello</b> will be exported as &lt;b&gt;hello&lt;/b&gt;
        */
@@ -2092,7 +2095,7 @@ export interface components {
     };
     ExportParams: {
       /**
-       * @description If true, HTML tags are escaped in the exported file.
+       * @description If true, HTML tags are escaped in the exported file. (Supported in the XLIFF format only).
        *
        * e.g. Key <b>hello</b> will be exported as &lt;b&gt;hello&lt;/b&gt;
        */
@@ -2680,6 +2683,11 @@ export interface components {
     KeyWithTranslationsModel: {
       /** @description There is a context available for this key */
       contextPresent: boolean;
+      /**
+       * Format: int64
+       * @description The time when the key was created
+       */
+      createdAt: number;
       /**
        * @description The namespace of the key
        * @example homepage
@@ -3773,6 +3781,10 @@ export interface components {
       /** Format: int64 */
       targetLanguageId: number;
       template: string;
+    };
+    PromptVariable: {
+      name: string;
+      value: string;
     };
     PropertyModification: {
       new?: { [key: string]: unknown };
@@ -4975,6 +4987,9 @@ export interface components {
     V2EditApiKeyDto: {
       description?: string;
       scopes: string[];
+    };
+    VariablesResponse: {
+      data: components["schemas"]["PromptVariable"][];
     };
     WebhookConfigModel: {
       /**
@@ -10863,7 +10878,7 @@ export interface operations {
          */
         supportArrays?: boolean;
         /**
-         * If true, HTML tags are escaped in the exported file.
+         * If true, HTML tags are escaped in the exported file. (Supported in the XLIFF format only).
          *
          * e.g. Key <b>hello</b> will be exported as &lt;b&gt;hello&lt;/b&gt;
          */
@@ -17545,6 +17560,55 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["WebhookTestResponse"];
+        };
+      };
+      /** Bad Request */
+      400: {
+        content: {
+          "application/json":
+            | components["schemas"]["ErrorResponseTyped"]
+            | components["schemas"]["ErrorResponseBody"];
+        };
+      };
+      /** Unauthorized */
+      401: {
+        content: {
+          "application/json":
+            | components["schemas"]["ErrorResponseTyped"]
+            | components["schemas"]["ErrorResponseBody"];
+        };
+      };
+      /** Forbidden */
+      403: {
+        content: {
+          "application/json":
+            | components["schemas"]["ErrorResponseTyped"]
+            | components["schemas"]["ErrorResponseBody"];
+        };
+      };
+      /** Not Found */
+      404: {
+        content: {
+          "application/json":
+            | components["schemas"]["ErrorResponseTyped"]
+            | components["schemas"]["ErrorResponseBody"];
+        };
+      };
+    };
+  };
+  variables: {
+    parameters: {
+      query: {
+        pId: number;
+        keyId: number;
+        targetLanguageId: number;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["VariablesResponse"];
         };
       };
       /** Bad Request */
